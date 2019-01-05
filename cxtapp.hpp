@@ -14,7 +14,7 @@ using std::string;
 using std::time_t;
 
 namespace eosiosystem {
-   class system_contract;
+   class [[eosio::contract]] system_contract;
 }
 
 namespace eosio {
@@ -321,7 +321,7 @@ namespace eosio {
       private:
 
         // @abi table profiles i64
-        struct profile{
+        struct [[eosio::table]] profile{
           name username;
           string fullname;
           string bio;
@@ -342,7 +342,7 @@ namespace eosio {
 
 
         // @abi table drafts i64
-        struct draft{
+        struct [[eosio::table]] draft{
           uint64_t draft_id;
           name username;
           string permlink;
@@ -366,7 +366,7 @@ namespace eosio {
         typedef multi_index<name("drafts"), draft> drafts_table;
 
         // @abi table chapters i64
-        struct chapter{
+        struct [[eosio::table]] chapter{
           uint64_t chapter_id;
           uint64_t draft_id;
           string title;
@@ -383,7 +383,7 @@ namespace eosio {
         typedef multi_index<name("chapters"), chapter> chapters_table;
 
         // @abi table reviews i64
-        struct reviews{
+        struct [[eosio::table]] reviews{
           uint64_t review_id;
           uint64_t book_id;
           name username;
@@ -398,7 +398,7 @@ namespace eosio {
         typedef multi_index<name("reviews"), reviews> reviews_table;
 
         // @abi table books i64
-        struct book{
+        struct [[eosio::table]] book{
           uint64_t book_id;
           string bucket;
           name username;
@@ -422,7 +422,7 @@ namespace eosio {
         typedef multi_index<name("books"), book> books_table;
 
         // @abi table follows i64
-        struct following{
+        struct [[eosio::table]] following{
           uint64_t follow_id;
           name username;
           name followed;
@@ -438,7 +438,7 @@ namespace eosio {
         indexed_by<name("byuser"), const_mem_fun< following, uint64_t, &following::by_user >>> follow_table;
 
         // @abi table followtags i64
-        struct tagfollow{
+        struct [[eosio::table]] tagfollow{
           uint64_t follow_id;
           name username;
           string tag;
@@ -454,7 +454,7 @@ namespace eosio {
         indexed_by<name("byuser"), const_mem_fun< tagfollow, uint64_t, &tagfollow::by_user >>> followtags_table;
 
         // @abi table readlists i64
-        struct readlist{
+        struct [[eosio::table]] readlist{
           uint64_t list_id;
           name username;
           string collection_name;
@@ -470,7 +470,7 @@ namespace eosio {
         indexed_by<name("byuser"), const_mem_fun< readlist, uint64_t, &readlist::by_user >>> readlist_table;
 
       // @abi table rlitems i64
-      struct rlitem{
+      struct [[eosio::table]] rlitem{
         uint64_t item_id;
         uint64_t list_id;
         uint64_t book_id;
@@ -485,7 +485,7 @@ namespace eosio {
       indexed_by<name("bylist"), const_mem_fun< rlitem, uint64_t, &rlitem::by_list >>> readlistitems_table;
 
       // @abi table  bookmarks i64
-      struct bmark{
+      struct [[eosio::table]] bmark{
         uint64_t mark_id;
         name username;
         uint64_t book_id;
@@ -503,7 +503,7 @@ namespace eosio {
       indexed_by<name("byuser"), const_mem_fun< bmark, uint64_t, &bmark::by_user >>> bookmark_table;
 
       // @abi table  previews i64
-      struct prevtable{
+      struct [[eosio::table]] prevtable{
         uint64_t preview_id;
         name username;
         uint64_t book_id;
@@ -519,7 +519,7 @@ namespace eosio {
       indexed_by<name("byuser"), const_mem_fun< prevtable, uint64_t, &prevtable::by_user >>> preview_table;
 
 
-      struct community{
+      struct [[eosio::table]] community{
         uint64_t community_id;
         name founder;
         string name;
@@ -537,7 +537,7 @@ namespace eosio {
       *Token Private Structs
       */
       // @abi table vp i64
-      struct vp {
+      struct [[eosio::table]] vp {
         name username;
         time_t start_date;
         uint32_t left;
@@ -547,7 +547,7 @@ namespace eosio {
       };
 
       // @abi table votes i64
-      struct votes_table{
+      struct [[eosio::table]] votes_table{
         uint64_t vote_id;
         uint64_t book_id;
         name username;
@@ -561,7 +561,7 @@ namespace eosio {
       };
 
       // @abi table claims i64
-      struct claim{
+      struct [[eosio::table]] claim{
         uint64_t claim_id;
         uint64_t vote_id;
         asset liquid;
@@ -575,14 +575,14 @@ namespace eosio {
       };
 
      // @abi table
-     struct account {
+     struct [[eosio::table]] account {
         asset    balance;
         asset    vested;
         uint64_t primary_key()const { return balance.symbol.raw(); }
      };
 
      // @abi table
-     struct currency_stats {
+     struct [[eosio::table]] currency_stats {
         asset          supply;
         asset          max_supply;
         name   issuer;
@@ -591,7 +591,7 @@ namespace eosio {
      };
 
      // @abi table
-     struct unvest {
+     struct [[eosio::table]] unvest {
        name username;
        asset        quantity;
        uint32_t     outstanding;
