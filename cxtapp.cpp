@@ -5,7 +5,7 @@
 * This file describes a login and signup function for a semi decentralized design schema for EOS dev
 */
 
-
+[[eosio::action]]
 void cxtapp::login(
   name username,
   asset init
@@ -41,6 +41,7 @@ void cxtapp::login(
 
 }
 
+[[eosio::action]]
 void cxtapp::updateuser(
   name username,
   string fullname,
@@ -66,7 +67,7 @@ void cxtapp::updateuser(
 
 }
 
-
+[[eosio::action]]
 void cxtapp::updatepix(
     name username,
     string bucket,
@@ -99,7 +100,7 @@ void cxtapp::updatepix(
 
 }
 
-
+[[eosio::action]]
 void cxtapp:: createdraft(
   uint64_t draft_id,
   name username,
@@ -139,6 +140,7 @@ void cxtapp:: createdraft(
 
 }
 
+[[eosio::action]]
 void cxtapp::updatedraft(
   name username,
   uint64_t draft_id,
@@ -179,7 +181,7 @@ void cxtapp::updatedraft(
 
 }
 
-
+[[eosio::action]]
 void cxtapp::addchapter(
   name username,
   uint64_t draft_id,
@@ -207,7 +209,7 @@ void cxtapp::addchapter(
   print("success");
 }
 
-
+[[eosio::action]]
 void cxtapp::addcontent(
   name username,
   uint64_t draft_id,
@@ -244,6 +246,7 @@ void cxtapp::addcontent(
   print("draft updated");
 }
 
+[[eosio::action]]
 void cxtapp::publish(
   name username,
   uint64_t draft_id
@@ -282,6 +285,7 @@ void cxtapp::publish(
 
 }
 
+[[eosio::action]]
 void cxtapp::addreview(
   uint64_t review_id,
   uint64_t book_id,
@@ -304,6 +308,7 @@ void cxtapp::addreview(
   print("review added");
 }
 
+[[eosio::action]]
 void cxtapp::follow(
   uint64_t follow_id,
   name username,
@@ -333,7 +338,7 @@ void cxtapp::follow(
 
 }
 
-
+[[eosio::action]]
 void cxtapp::unfollow(
   name username,
   uint64_t follow_id
@@ -354,7 +359,7 @@ void cxtapp::unfollow(
 
 }
 
-
+[[eosio::action]]
 void cxtapp::createrl(
   uint64_t list_id,
   name username,
@@ -375,7 +380,7 @@ void cxtapp::createrl(
   print("collection created");
 }
 
-
+[[eosio::action]]
 void cxtapp::updaterl(
   name username,
   uint64_t list_id,
@@ -399,6 +404,7 @@ void cxtapp::updaterl(
   print("collection modified");
 }
 
+[[eosio::action]]
 void cxtapp::insertrl(
   name username,
   uint64_t list_id,
@@ -431,6 +437,7 @@ void cxtapp::insertrl(
 
 }
 
+[[eosio::action]]
 void cxtapp::create( name issuer,
                     asset        maximum_supply )
 {
@@ -452,7 +459,7 @@ void cxtapp::create( name issuer,
     });
 }
 
-
+[[eosio::action]]
 void cxtapp::issue( name to, asset quantity, string memo )
 {
     auto sym = quantity.symbol;
@@ -483,6 +490,7 @@ void cxtapp::issue( name to, asset quantity, string memo )
     }
 }
 
+[[eosio::action]]
 void cxtapp::issuevest( name to, asset quantity, string memo )
 {
     auto sym = quantity.symbol;
@@ -514,6 +522,7 @@ void cxtapp::issuevest( name to, asset quantity, string memo )
     }
 }
 
+[[eosio::action]]
 void cxtapp::transfer( name from,
                       name to,
                       asset        quantity,
@@ -539,6 +548,7 @@ void cxtapp::transfer( name from,
     add_balance( to, quantity, from );
 }
 
+[[eosio::action]]
 void cxtapp::vest(name username,
                 asset quantity)
 {
@@ -554,6 +564,7 @@ void cxtapp::vest(name username,
   vest_balance(username, quantity);
 }
 
+[[eosio::action]]
 void cxtapp::unvesting( name username, asset quantity){
   require_auth(username);
   auto sym = quantity.symbol.raw();
@@ -590,6 +601,7 @@ void cxtapp::unvesting( name username, asset quantity){
 }
 
 //BUGGY AF
+[[eosio::action]]
 void cxtapp::liquify( name username, symbol_code sym){
   require_auth(username);
 
@@ -628,6 +640,7 @@ void cxtapp::liquify( name username, symbol_code sym){
   }*/
 }
 
+[[eosio::action]]
 void cxtapp::vote(name voter, uint64_t book_id, symbol sym, uint64_t vote_id){
   require_auth(voter);
 
@@ -723,6 +736,7 @@ void cxtapp::vote(name voter, uint64_t book_id, symbol sym, uint64_t vote_id){
    //create claims for voter and writer
 }
 
+[[eosio::action]]
 void cxtapp::claimreward(name username, uint64_t vote_id){
   require_auth(username);
 
@@ -744,7 +758,7 @@ void cxtapp::claimreward(name username, uint64_t vote_id){
 
 }
 
-
+[[eosio::action]]
 void cxtapp::strict_vest( name owner, asset value ) {
   accounts to_acnts( _self, owner.value );
   auto to = to_acnts.find( value.symbol.raw() );
@@ -759,6 +773,7 @@ void cxtapp::strict_vest( name owner, asset value ) {
   }
 }
 
+[[eosio::action]]
 void cxtapp::vest_balance( name owner, asset value ) {
   require_auth(owner);
 
@@ -774,6 +789,7 @@ void cxtapp::vest_balance( name owner, asset value ) {
 
 }
 
+[[eosio::action]]
 void cxtapp::sub_balance( name owner, asset value ) {
    accounts from_acnts( _self, owner.value );
 
@@ -787,6 +803,7 @@ void cxtapp::sub_balance( name owner, asset value ) {
 
 }
 
+[[eosio::action]]
 void cxtapp::add_balance( name owner, asset value, name ram_payer )
 {
    accounts to_acnts( _self, owner.value );
@@ -802,7 +819,7 @@ void cxtapp::add_balance( name owner, asset value, name ram_payer )
    }
 }
 
-
+[[eosio::action]]
 void cxtapp::followtag(
   uint64_t follow_id,
   name username,
@@ -811,6 +828,7 @@ void cxtapp::followtag(
 
 }
 
+[[eosio::action]]
 void cxtapp::unfollowtag(
   uint64_t follow_id,
   name username
@@ -818,7 +836,7 @@ void cxtapp::unfollowtag(
 
 }
 
-
+[[eosio::action]]
 void cxtapp::newcommune(
   name username,
   string name,
@@ -830,6 +848,7 @@ void cxtapp::newcommune(
 
 }
 
+[[eosio::action]]
 void cxtapp::preview(
   uint64_t preview_id,
   name username,
@@ -856,6 +875,7 @@ void cxtapp::preview(
 
 }
 
+[[eosio::action]]
 void cxtapp::bookmark(
   uint64_t mark_id,
   name username,
